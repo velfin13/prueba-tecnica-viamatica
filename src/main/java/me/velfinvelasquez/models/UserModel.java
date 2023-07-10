@@ -69,6 +69,9 @@ public class UserModel {
 	@Column(name = "session_active")
 	private Boolean session_active = false;
 	
+	@Column(name = "intentos_sesion")
+	private int intentos_sesion = 0;
+	
 	@OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private List<RolModel> roles;
