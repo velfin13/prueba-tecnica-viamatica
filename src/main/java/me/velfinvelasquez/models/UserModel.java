@@ -70,7 +70,7 @@ public class UserModel {
 	private Boolean session_active = false;
 	
 	@Column(name = "intentos_sesion")
-	private int intentos_sesion = 0;
+	private int intentos_login = 0;
 	
 	@OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")

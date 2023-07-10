@@ -10,4 +10,10 @@ public interface UserService {
 
 	UserModel save(UserModel inmueble);
 
+	UserModel update(Long id, UserModel user);
+
+	UserModel getById(Long id);
+
+	UserModel logout(String email);
+
 }
