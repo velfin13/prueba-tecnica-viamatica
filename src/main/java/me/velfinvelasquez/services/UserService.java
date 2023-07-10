@@ -10,4 +10,6 @@ public interface UserService {
 
 	UserModel save(UserModel inmueble);
 
+	UserModel login(String email, String password);
+
 }

@@ -1,5 +1,6 @@
 package me.velfinvelasquez.controllers;
 
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,31 +21,42 @@ import me.velfinvelasquez.utils.ValidatorData;
 @RestController
 @RequestMapping("api/user")
 public class UserController {
-	private ValidatorData validatorData=new ValidatorData();
-	
+	private ValidatorData validatorData = new ValidatorData();
+
 	@Autowired
 	private UserService userService;
-	
 
 	@GetMapping
 	public ResponseEntity<?> getAll() {
 		return ResponseEntity.ok(userService.getAll());
 	}
-	
-    @PostMapping
-    public ResponseEntity<?> saveUser(@Valid @RequestBody UserModel user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage(bindingResult.getFieldError().getDefaultMessage()));
-        }
-        boolean isValid = validatorData.isValidIdentification(user.getIdentificacion());
-        if(!isValid) {
-        	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage("El campo identificacion posee un numero repetido 4 veces"));
-        }
 
-        return new ResponseEntity<>(
-				userService.save(user), 
-				HttpStatus.CREATED);
-    }
+	@PostMapping
+	public ResponseEntity<?> saveUser(@Valid @RequestBody UserModel user, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body(new ErrorMessage(bindingResult.getFieldError().getDefaultMessage()));
+		}
+		boolean isValid = validatorData.isValidIdentification(user.getIdentificacion());
+		if (!isValid) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body(new ErrorMessage("El campo identificacion posee un numero repetido 4 veces"));
+		}
+
+		return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
+	}
+
+	@PostMapping("/login")
+	public ResponseEntity<?> login(@RequestBody Map<String, String> loginData) {
+		String email = loginData.get("email");
+		String password = loginData.get("password");
+		UserModel user = new UserModel();
+		user = userService.login(email, password);
+		if (user == null) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+					.body(new ErrorMessage("Usuario o contraseña invalida"));
+		}
+		return ResponseEntity.ok(user);
+	}
 
 }
-

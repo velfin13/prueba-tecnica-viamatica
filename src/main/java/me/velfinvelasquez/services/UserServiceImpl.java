@@ -27,4 +27,17 @@ public class UserServiceImpl implements UserService{
         user.setEmail(email);
 		return userRepository.save(user);
 	}
+	
+	@Override
+	public UserModel login(String email, String password) {
+	    UserModel user = userRepository.findByEmail(email);
+
+	    if (user != null && user.getPassword().equals(password)) {
+	        // Usuario encontrado y la contraseña coincide
+	        return user;
+	    } else {
+	        // Usuario no encontrado o la contraseña no coincide
+	        return null;
+	    }
+	}
 }
