@@ -29,4 +29,13 @@ public class ValidatorData {
 		String email = firstNameInitial + lastName + identificationLastFourDigits + "@mail.com";
 		return email;
 	}
+	
+	public static boolean isEmail(String input) {
+	    // Expresión regular para validar un correo electrónico
+	    String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+	    
+	    // Verificar si el input coincide con el patrón de un correo electrónico
+	    return input.matches(emailRegex);
+	}
+
 }

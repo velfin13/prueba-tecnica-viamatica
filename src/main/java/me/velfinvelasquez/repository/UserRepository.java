@@ -8,4 +8,7 @@ import me.velfinvelasquez.models.UserModel;
 public interface UserRepository extends JpaRepository<UserModel, Long> {
 	@Query(value = "SELECT * FROM users WHERE email = :email", nativeQuery = true)
 	UserModel findByEmail(String email);
+	
+	@Query(value = "SELECT * FROM users WHERE username = :username", nativeQuery = true)
+	UserModel findByUsername(String username);
 }

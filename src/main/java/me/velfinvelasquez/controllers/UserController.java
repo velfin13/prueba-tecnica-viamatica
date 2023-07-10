@@ -58,9 +58,17 @@ public class UserController {
 
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody Map<String, String> loginData) {
-		String email = loginData.get("email");
+		String userOrEmail = loginData.get("userOrEmail");
 		String password = loginData.get("password");
-		UserModel user = userRepository.findByEmail(email);
+		UserModel user = new UserModel();
+		
+		if(validatorData.isEmail(userOrEmail)) {
+			user = userRepository.findByEmail(userOrEmail);
+		} else {
+			user = userRepository.findByUsername(userOrEmail);
+		}
+		
+		
 		if (user != null && user.getPassword().equals(password)) {
 			if (!user.getStatus()) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST)
