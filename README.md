@@ -37,3 +37,25 @@ MYSQL_PASSWORD=password
 ```
 
 Ingresa las credenciales que configuraste y listo!
+
+# Para levantar la Api en modo desarrolo
+
+1) ubicarse en la raiz del proyecto y ejecute
+
+
+```bash
+  ./mvnw spring-boot:run
+```
+    
+
+
+## Para ver los endpints escriba en el navegador
+
+```bash
+  http://localhost:3000/swagger-ui/index.html
+```
+
+## O, tambien puedes acceder por medio de Postman 
+```
+https://documenter.getpostman.com/view/14749617/2s946bCFC9
+```
