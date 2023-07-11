@@ -9,7 +9,7 @@
 
 
 ```bash
-  git@github.com:velfin13/prueba-tecnica-viamatica.git
+ git clone https://github.com/velfin13/prueba-tecnica-viamatica.git
 
   cd prueba-tecnica-viamatica/db
 ```
